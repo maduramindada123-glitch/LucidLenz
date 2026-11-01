@@ -1,217 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090909">
-  <meta name="description" content="Lucid Lenz — photography, videography and Merch Heaven. Explore our portfolio and shop official merchandise.">
-  <title>LUCID LENZ & MERCH HEAVEN</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <style>
-    :root{--bg:#090909;--panel:#121212;--panel2:#191919;--text:#f6f3ed;--muted:#aaa49a;--gold:#d6a84b;--line:#2b2925;--radius:18px;--content:1180px;--font:DM Sans,sans-serif}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.55}button,input,textarea,select{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
-    .wrap{width:min(var(--content),calc(100% - 40px));margin:auto}.topbar{position:sticky;top:0;z-index:20;background:#090909ed;backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.13em}.mark{background:var(--gold);color:#111;padding:9px 11px;border-radius:9px;font-weight:800}.brand small{display:block;color:var(--gold);font-weight:400;letter-spacing:.18em;font-size:10px}.navlinks{display:flex;align-items:center;gap:8px}.navlinks button,.btn{border:1px solid var(--line);background:transparent;color:var(--text);padding:10px 16px;border-radius:999px}.navlinks button.active,.btn.primary{background:var(--gold);border-color:var(--gold);color:#111;font-weight:700}.btn:hover,.navlinks button:hover{border-color:var(--gold)}.hero{padding:82px 0 62px;display:grid;grid-template-columns:1.1fr .9fr;gap:38px;align-items:center}.eyebrow{color:var(--gold);letter-spacing:.22em;text-transform:uppercase;font-size:11px;font-weight:700}.hero h1{font:700 clamp(42px,6vw,76px)/1.04 "Playfair Display",serif;margin:15px 0}.hero p{color:var(--muted);max-width:560px}.hero-img{height:440px;border-radius:26px;overflow:hidden;background:var(--panel)}.hero-img img{width:100%;height:100%;object-fit:cover}.section{padding:42px 0 70px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:24px}.section h2{font:700 clamp(28px,4vw,40px) "Playfair Display",serif;margin:5px 0}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}.card-img{height:245px;background:#1c1c1c;overflow:hidden}.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .35s}.card:hover .card-img img{transform:scale(1.04)}.card-body{padding:18px}.card-body h3{margin:0 0 7px;font-size:17px}.card-body p{color:var(--muted);font-size:13px;margin:0 0 12px}.price{color:var(--gold);font-weight:700}.tag{display:inline-block;color:#d6c9ac;border:1px solid var(--line);border-radius:99px;padding:4px 9px;font-size:11px;margin:3px 3px 0 0}.card-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.smallbtn{border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:transparent;color:var(--text);font-size:12px}.smallbtn.gold{background:var(--gold);color:#111;border-color:var(--gold);font-weight:700}.empty{border:1px dashed var(--line);padding:35px;border-radius:var(--radius);color:var(--muted);text-align:center;grid-column:1/-1}.footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:12px}.footerrow{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
-    .modal{position:fixed;inset:0;z-index:50;background:#000c;display:none;align-items:center;justify-content:center;padding:18px}.modal.show{display:flex}.dialog{width:min(100%,900px);max-height:92vh;overflow:auto;background:#111;border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 24px 90px #000}.dialog.narrow{width:min(100%,430px)}.dialoghead{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:18px}.dialoghead h2{margin:0;font:700 25px "Playfair Display",serif}.x{border:0;background:transparent;color:var(--muted);font-size:25px}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:12px;color:#d8d0c2}.field input,.field textarea,.field select{width:100%;background:#090909;border:1px solid var(--line);color:var(--text);padding:11px 12px;border-radius:10px;outline:none}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold)}.field textarea{min-height:90px;resize:vertical}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.check{display:flex;gap:9px;align-items:center;color:var(--muted);font-size:13px;margin:12px 0}.check input{accent-color:var(--gold)}.admin-layout{display:grid;grid-template-columns:205px 1fr;gap:20px}.side{background:#090909;border:1px solid var(--line);border-radius:14px;padding:10px;height:max-content}.side button{display:block;width:100%;text-align:left;background:transparent;color:var(--muted);border:0;padding:11px;border-radius:9px}.side button.active,.side button:hover{background:#211d15;color:var(--gold)}.adminpanel{background:#090909;border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}.adminpanel h3{margin:0 0 12px}.adminlist{display:grid;gap:9px;margin-top:18px}.adminrow{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:11px;border:1px solid var(--line);border-radius:10px}.adminrow span{font-size:13px}.adminrow small{display:block;color:var(--muted)}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#f2e6ca;color:#15110a;padding:11px 17px;border-radius:999px;z-index:100;display:none;font-size:13px;font-weight:700}.toast.show{display:block}.hidden{display:none!important}.previewbox{border:1px solid var(--line);border-radius:14px;overflow:hidden}.previewbox img{width:100%;max-height:350px;object-fit:cover}.previewbox div{padding:16px}
-    @media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:50px}.hero-img{height:300px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-layout{grid-template-columns:1fr}.side{display:flex;overflow:auto}.side button{white-space:nowrap;width:auto}.nav{flex-wrap:wrap;padding:13px 0}.navlinks{width:100%;overflow:auto}.navlinks button{white-space:nowrap}.brand{font-size:13px}}
-    @media(max-width:540px){.wrap{width:min(var(--content),calc(100% - 28px))}.grid{grid-template-columns:1fr}.card-img{height:250px}.formgrid{grid-template-columns:1fr}.dialog{padding:16px}.hero h1{font-size:44px}.section-head{align-items:start;flex-direction:column}}
-  </style>
+    <meta charset="UTF-8">
+    <title>One-Click Copy</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #0f172a; color: #f8fafc; }
+        .card { background: #1e293b; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); text-align: center; width: 320px; }
+        input { width: 100%; padding: 10px; margin-bottom: 1rem; border: 1px solid #475569; background: #0f172a; color: #fff; border-radius: 6px; box-sizing: border-box; }
+        button { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; transition: background 0.2s; }
+        button:hover { background: #2563eb; }
+        .success { margin-top: 0.75rem; font-size: 0.875rem; color: #4ade80; opacity: 0; transition: opacity 0.3s; }
+    </style>
 </head>
 <body>
-<header class="topbar"><div class="wrap nav">
-  <a class="brand" href="#" aria-label="Lucid Lenz home"><span class="mark">LL</span><span>LUCID LENZ<small>& MERCH HEAVEN</small></span></a>
-  <nav class="navlinks" aria-label="Main navigation"><button class="active" data-tab="portfolio">Portfolio</button><button data-tab="shop">Merch Store</button><button data-tab="about">About & Contact</button></nav>
-</div></header>
-<main class="wrap">
-  <section class="hero" id="hero">
-    <div><div class="eyebrow" id="heroEyebrow">Photography · Videography · Streetwear</div><h1 id="heroTitle">Stories told through the lens.</h1><p id="heroText">Discover visual work made with intention, and explore official pieces from Merch Heaven.</p><div class="card-actions"><button class="btn primary" data-jump="portfolio">Explore portfolio</button><button class="btn" data-tab="shop">Shop merchandise</button></div></div>
-    <div class="hero-img"><img id="heroImage" src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=85" alt="Photography camera and creative studio"></div>
-  </section>
-  <section class="section" id="portfolioSection"><div class="section-head"><div><div class="eyebrow">Selected work</div><h2>Visual Portfolio</h2><div class="muted">Photography and videography projects.</div></div></div><div class="grid" id="portfolioGrid"></div></section>
-  <section class="section hidden" id="shopSection"><div class="section-head"><div><div class="eyebrow">Wear the story</div><h2>Merch Heaven Store</h2><div class="muted">Official clothing, accessories and limited drops.</div></div></div><div class="grid" id="productGrid"></div></section>
-  <section class="section hidden" id="aboutSection"><div class="eyebrow">Let's create something</div><h2>About & Contact</h2><p class="muted" id="aboutText">Lucid Lenz is a creative photography and visual storytelling brand. Contact us for bookings, collaborations and merchandise.</p><div class="card" style="padding:22px;max-width:600px"><h3>Get in touch</h3><p class="muted" id="contactText">For bookings and product enquiries, message us on WhatsApp.</p><a class="btn primary" id="contactWhatsApp" href="#" target="_blank" rel="noopener">Chat on WhatsApp</a></div></section>
-</main>
-<footer class="footer"><div class="wrap footerrow"><span>© <span id="year"></span> LUCID LENZ & MERCH HEAVEN</span><span>Photography · Videography · Merchandise</span></div></footer>
 
-<!-- Admin sign-in is intentionally not shown in public navigation. Open your private admin URL: yoursite.com/#admin -->
-<div class="modal" id="loginModal"><div class="dialog narrow"><div class="dialoghead"><h2>Administrator Login</h2><button class="x" data-close="loginModal" aria-label="Close">×</button></div><p class="muted" style="font-size:13px">Private access for the website owner.</p><form id="loginForm"><div class="field"><label>Email</label><input id="loginEmail" type="email" autocomplete="username" required></div><div class="field"><label>Password</label><input id="loginPassword" type="password" autocomplete="current-password" required></div><button class="btn primary" style="width:100%">Sign in securely</button></form><p class="muted" id="loginHint" style="font-size:11px;margin-top:14px">Admin accounts are created in your Supabase project. Public sign-up is not available here.</p></div></div>
-
-<div class="modal" id="adminModal"><div class="dialog"><div class="dialoghead"><div><div class="eyebrow">Private workspace</div><h2>Website Control Centre</h2></div><div style="display:flex;gap:8px;align-items:center"><button class="btn" id="logoutBtn">Log out</button><button class="x" data-close="adminModal" aria-label="Close">×</button></div></div>
-  <div class="admin-layout"><aside class="side"><button class="active" data-admin-tab="portfolio">Portfolio manager</button><button data-admin-tab="products">Product manager</button><button data-admin-tab="appearance">Website appearance</button><button data-admin-tab="settings">Business settings</button></aside>
-    <div>
-      <section class="adminpanel" id="adminPortfolio"><h3>Portfolio manager</h3><form id="portfolioForm">
-        <input type="hidden" id="pfId"><div class="formgrid"><div class="field"><label>Project title *</label><input id="pfTitle" required maxlength="100"></div><div class="field"><label>Category</label><input id="pfCategory" placeholder="Portrait, Automotive, Wedding..."></div></div>
-        <div class="field"><label>Description</label><textarea id="pfDesc"></textarea></div><div class="formgrid"><div class="field"><label>Upload image</label><input id="pfFile" type="file" accept="image/*"></div><div class="field"><label>Or paste image URL</label><input id="pfImage" type="url" placeholder="https://..."></div></div>
-        <label class="check"><input id="pfPublished" type="checkbox" checked> Published on public website</label><div class="card-actions"><button class="btn primary">Save project</button><button type="button" class="btn" id="pfPreview">Preview</button><button type="button" class="btn" id="pfReset">Clear form</button></div></form><div class="adminlist" id="portfolioAdminList"></div></section>
-      <section class="adminpanel hidden" id="adminProducts"><h3>Merchandise manager</h3><form id="productForm">
-        <input type="hidden" id="prId"><div class="formgrid"><div class="field"><label>Product name *</label><input id="prTitle" required maxlength="100"></div><div class="field"><label>Price (e.g. LKR 5,500) *</label><input id="prPrice" required></div><div class="field"><label>Sizes / options</label><input id="prSizes" placeholder="S, M, L, XL"></div><div class="field"><label>Delivery charge</label><input id="prDelivery" placeholder="LKR 350"></div></div>
-        <div class="field"><label>Description</label><textarea id="prDesc"></textarea></div><div class="formgrid"><div class="field"><label>Upload product image</label><input id="prFile" type="file" accept="image/*"></div><div class="field"><label>Or paste image URL</label><input id="prImage" type="url" placeholder="https://..."></div></div>
-        <label class="check"><input id="prPublished" type="checkbox" checked> Available / published</label><div class="card-actions"><button class="btn primary">Save product</button><button type="button" class="btn" id="prPreview">Preview</button><button type="button" class="btn" id="prReset">Clear form</button></div></form><div class="adminlist" id="productAdminList"></div></section>
-      <section class="adminpanel hidden" id="adminAppearance"><h3>Website appearance</h3><p class="muted" style="font-size:13px">These settings change the public website. Save and refresh to publish.</p><form id="appearanceForm">
-        <div class="formgrid"><div class="field"><label>Hero headline</label><input id="setHeroTitle"></div><div class="field"><label>Small eyebrow text</label><input id="setEyebrow"></div></div><div class="field"><label>Hero introduction</label><textarea id="setHeroText"></textarea></div><div class="formgrid"><div class="field"><label>Hero image URL</label><input id="setHeroImage" type="url"></div><div class="field"><label>Brand gold colour</label><input id="setGold" type="color" value="#d6a84b"></div></div><div class="formgrid"><div class="field"><label>Content width (px)</label><input id="setWidth" type="number" min="800" max="1500"></div><div class="field"><label>Card corner radius (px)</label><input id="setRadius" type="number" min="0" max="40"></div></div><button class="btn primary">Save appearance</button></form></section>
-      <section class="adminpanel hidden" id="adminSettings"><h3>Business settings & SEO</h3><form id="settingsForm"><div class="formgrid"><div class="field"><label>WhatsApp number (international format, digits only)</label><input id="setWhatsApp" placeholder="9477XXXXXXXX"></div><div class="field"><label>Business email (optional)</label><input id="setEmail" type="email"></div></div><div class="field"><label>About your business</label><textarea id="setAbout"></textarea></div><div class="field"><label>Contact instructions</label><textarea id="setContact"></textarea></div><div class="field"><label>SEO page description</label><textarea id="setSeo" maxlength="300"></textarea></div><button class="btn primary">Save business settings</button></form></section>
-    </div>
-  </div>
-</div></div>
-<div class="modal" id="previewModal"><div class="dialog narrow"><div class="dialoghead"><h2>Preview before saving</h2><button class="x" data-close="previewModal">×</button></div><div class="previewbox" id="previewContent"></div></div></div>
-<div class="toast" id="toast"></div>
+<div class="card">
+    <h3>One-Click Copy Tool</h3>
+    <input type="text" id="copyInput" value="Text ready to be copied instantly!" />
+    <button onclick="copyText()">Copy to Clipboard</button>
+    <div id="msg" class="success">Copied successfully!</div>
+</div>
 
 <script>
-(() => {
-  // 1) Paste your Supabase Project URL and anon/public key here. Never put a service_role key in this file.
-  const SUPABASE_URL = "https://mwfyttpdxyczawzbnbtz.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im13Znl0dHBkeHljemF3emJuYnR6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM1MDExNDgsImV4cCI6MjEwOTA3NzE0OH0.ROGDnP917xNt3DvhD42d3Nmwh2qwDvGyMP1HQjf9cm8";
-  const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR_") && !SUPABASE_ANON_KEY.includes("YOUR_");
-  const db = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
-  const $ = id => document.getElementById(id);
-  const state = { portfolio: [], products: [], settings: {}, user: null, tab: "portfolio" };
-  const defaults = {
-    hero_title:"Stories told through the lens.", eyebrow:"Photography · Videography · Streetwear",
-    hero_text:"Discover visual work made with intention, and explore official pieces from Merch Heaven.",
-    hero_image:"https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=85",
-    gold:"#d6a84b", content_width:"1180", radius:"18", whatsapp:"", email:"",
-    about:"Lucid Lenz is a creative photography and visual storytelling brand. Contact us for bookings, collaborations and merchandise.",
-    contact:"For bookings and product enquiries, message us on WhatsApp.",
-    seo:"Lucid Lenz — photography, videography and Merch Heaven. Explore our portfolio and shop official merchandise."
-  };
-  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  const toast = msg => { $("toast").textContent=msg; $("toast").classList.add("show"); setTimeout(()=>$("toast").classList.remove("show"),2600); };
-  const open = id => $(id).classList.add("show");
-  const close = id => $(id).classList.remove("show");
-  const publicUrl = path => path || "";
-  const waLink = (phone, message) => phone ? `https://wa.me/${String(phone).replace(/\D/g,"")}?text=${encodeURIComponent(message)}` : "#";
-  async function loadData(){
-    if(!db){ render(); $("loginHint").textContent="Connect Supabase first. Follow SETUP.md included with this website."; return; }
-    try {
-      const [p,m,s] = await Promise.all([
-        db.from("portfolio").select("*").eq("published",true).order("created_at",{ascending:false}),
-        db.from("products").select("*").eq("published",true).order("created_at",{ascending:false}),
-        db.from("site_settings").select("key,value")
-      ]);
-      if(p.error) throw p.error; if(m.error) throw m.error; if(s.error) throw s.error;
-      state.portfolio=p.data||[]; state.products=m.data||[];
-      state.settings={...defaults}; (s.data||[]).forEach(x=>state.settings[x.key]=x.value);
-      applySettings(); render();
-    } catch(e){ console.error(e); toast("Could not load website data. Check Supabase setup."); render(); }
-  }
-  function applySettings(){
-    const s={...defaults,...state.settings};
-    $("heroTitle").textContent=s.hero_title; $("heroEyebrow").textContent=s.eyebrow; $("heroText").textContent=s.hero_text;
-    $("heroImage").src=s.hero_image||defaults.hero_image; $("aboutText").textContent=s.about; $("contactText").textContent=s.contact;
-    $("contactWhatsApp").href=waLink(s.whatsapp,"Hello Lucid Lenz! I would like to make an enquiry.");
-    document.documentElement.style.setProperty("--gold",s.gold||defaults.gold);
-    document.documentElement.style.setProperty("--content",(Number(s.content_width)||1180)+"px");
-    document.documentElement.style.setProperty("--radius",(Number(s.radius)||18)+"px");
-    document.querySelector('meta[name="description"]').content=s.seo||defaults.seo;
-  }
-  function render(){
-    $("portfolioGrid").innerHTML=state.portfolio.length?state.portfolio.map(x=>`<article class="card"><div class="card-img"><img loading="lazy" src="${esc(publicUrl(x.image_url))}" alt="${esc(x.title)}"></div><div class="card-body"><span class="tag">${esc(x.category||"Photography")}</span><h3>${esc(x.title)}</h3><p>${esc(x.description||"")}</p></div></article>`).join(""):'<div class="empty">New creative work is coming soon. Check back shortly.</div>';
-    $("productGrid").innerHTML=state.products.length?state.products.map(x=>`<article class="card"><div class="card-img"><img loading="lazy" src="${esc(publicUrl(x.image_url))}" alt="${esc(x.title)}"></div><div class="card-body"><div style="display:flex;justify-content:space-between;gap:10px"><h3>${esc(x.title)}</h3><span class="price">${esc(x.price)}</span></div><p>${esc(x.description||"")}</p><span class="tag">Sizes: ${esc(x.sizes||"Ask us")}</span><span class="tag">Delivery: ${esc(x.delivery||"Confirm")}</span><div class="card-actions"><a class="smallbtn gold" target="_blank" rel="noopener" href="${esc(waLink(state.settings.whatsapp,`Hello! I want to order: ${x.title}. Price: ${x.price}. Please confirm availability and delivery.`))}">Order on WhatsApp</a></div></div></article>`).join(""):'<div class="empty">No products are available right now. New drops coming soon.</div>';
-  }
-  function switchTab(tab){
-    state.tab=tab; $("portfolioSection").classList.toggle("hidden",tab!=="portfolio"); $("shopSection").classList.toggle("hidden",tab!=="shop"); $("aboutSection").classList.toggle("hidden",tab!=="about");
-    document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
-    if(tab==="portfolio") $("hero").classList.remove("hidden"); else $("hero").classList.add("hidden");
-    window.scrollTo({top:0,behavior:"smooth"});
-  }
-  document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.tab)));
-  document.querySelectorAll("[data-jump]").forEach(b=>b.addEventListener("click",()=>{switchTab(b.dataset.jump);}));
-  document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>close(b.dataset.close)));
-  document.querySelectorAll(".modal").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)close(m.id)}));
-  $("year").textContent=new Date().getFullYear();
-
-  async function requireAdmin(){
-    if(!db){toast("Connect Supabase first. See SETUP.md.");return false;}
-    const {data,error}=await db.auth.getUser();
-    if(error||!data.user){open("loginModal");return false;}
-    state.user=data.user;
-    const {data:admin,error:adminErr}=await db.rpc("is_admin");
-    if(adminErr||admin!==true){await db.auth.signOut();state.user=null;toast("This account is not authorised as an administrator.");return false;}
-    await loadAdminData(); open("adminModal"); return true;
-  }
-  async function loadAdminData(){
-    const [p,m,s]=await Promise.all([
-      db.from("portfolio").select("*").order("created_at",{ascending:false}),
-      db.from("products").select("*").order("created_at",{ascending:false}),
-      db.from("site_settings").select("key,value")
-    ]);
-    if(p.error||m.error||s.error){toast("Could not load admin records. Check database policies.");return;}
-    state.portfolio=p.data||[];state.products=m.data||[];
-    state.settings={...defaults};(s.data||[]).forEach(x=>state.settings[x.key]=x.value);
-    render();renderAdminLists();fillSettings();
-  }
-  $("loginForm").addEventListener("submit",async e=>{
-    e.preventDefault();if(!db)return toast("Supabase is not configured.");
-    const {error}=await db.auth.signInWithPassword({email:$("loginEmail").value,password:$("loginPassword").value});
-    if(error){toast("Login failed. Check your email and password.");return;}
-    close("loginModal"); await requireAdmin();
-  });
-  $("logoutBtn").addEventListener("click",async()=>{await db.auth.signOut();state.user=null;close("adminModal");toast("You are logged out.");});
-  function showAdminTab(tab){
-    ["portfolio","products","appearance","settings"].forEach(t=>{ $("admin"+t[0].toUpperCase()+t.slice(1)).classList.toggle("hidden",t!==tab);});
-    document.querySelectorAll("[data-admin-tab]").forEach(b=>b.classList.toggle("active",b.dataset.adminTab===tab));
-  }
-  document.querySelectorAll("[data-admin-tab]").forEach(b=>b.addEventListener("click",()=>showAdminTab(b.dataset.adminTab)));
-  function renderAdminLists(){
-    $("portfolioAdminList").innerHTML=state.portfolio.map(x=>`<div class="adminrow"><span><b>${esc(x.title)}</b><small>${x.published?"Published":"Draft"} · ${esc(x.category||"Portfolio")}</small></span><span><button class="smallbtn" data-edit-p="${x.id}">Edit</button> <button class="smallbtn" data-del-p="${x.id}">Delete</button></span></div>`).join("")||'<p class="muted">No portfolio projects yet.</p>';
-    $("productAdminList").innerHTML=state.products.map(x=>`<div class="adminrow"><span><b>${esc(x.title)}</b><small>${esc(x.price)} · ${x.published?"Published":"Hidden"}</small></span><span><button class="smallbtn" data-edit-m="${x.id}">Edit</button> <button class="smallbtn" data-del-m="${x.id}">Delete</button></span></div>`).join("")||'<p class="muted">No products yet.</p>';
-    document.querySelectorAll("[data-edit-p]").forEach(b=>b.onclick=()=>editPortfolio(b.dataset.editP));
-    document.querySelectorAll("[data-del-p]").forEach(b=>b.onclick=()=>deleteRow("portfolio",b.dataset.delP));
-    document.querySelectorAll("[data-edit-m]").forEach(b=>b.onclick=()=>editProduct(b.dataset.editM));
-    document.querySelectorAll("[data-del-m]").forEach(b=>b.onclick=()=>deleteRow("products",b.dataset.delM));
-  }
-  async function uploadImage(file){
-    if(!file)return null;
-    if(!file.type.startsWith("image/"))throw new Error("Please choose an image file.");
-    if(file.size>8*1024*1024)throw new Error("Image must be smaller than 8 MB.");
-    const ext=(file.name.split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"");
-    const path=`${Date.now()}-${crypto.randomUUID()}.${ext}`;
-    const {error}=await db.storage.from("site-images").upload(path,file,{upsert:false,contentType:file.type});
-    if(error)throw error;
-    return db.storage.from("site-images").getPublicUrl(path).data.publicUrl;
-  }
-  async function saveRecord(table,id,record,fileInput,urlInput){
-    try{
-      let image= $(urlInput).value.trim() || null;
-      const file=$(fileInput).files[0]; if(file)image=await uploadImage(file);
-      if(!id && !image)throw new Error("Please upload an image or enter an image URL.");
-      if(id && !image){const old=(table==="portfolio"?state.portfolio:state.products).find(x=>String(x.id)===String(id));image=old?.image_url||null;}
-      record.image_url=image;
-      const result=id?await db.from(table).update(record).eq("id",id):await db.from(table).insert(record);
-      if(result.error)throw result.error;
-      toast("Saved successfully."); await loadAdminData(); return true;
-    }catch(e){console.error(e);toast(e.message||"Save failed.");return false;}
-  }
-  $("portfolioForm").addEventListener("submit",async e=>{
-    e.preventDefault();const id=$("pfId").value;
-    const ok=await saveRecord("portfolio",id,{title:$("pfTitle").value.trim(),category:$("pfCategory").value.trim(),description:$("pfDesc").value.trim(),published:$("pfPublished").checked},"pfFile","pfImage");
-    if(ok)resetPortfolio();
-  });
-  $("productForm").addEventListener("submit",async e=>{
-    e.preventDefault();const id=$("prId").value;
-    const ok=await saveRecord("products",id,{title:$("prTitle").value.trim(),price:$("prPrice").value.trim(),sizes:$("prSizes").value.trim(),delivery:$("prDelivery").value.trim(),description:$("prDesc").value.trim(),published:$("prPublished").checked},"prFile","prImage");
-    if(ok)resetProduct();
-  });
-  function editPortfolio(id){const x=state.portfolio.find(r=>String(r.id)===String(id));if(!x)return;$("pfId").value=x.id;$("pfTitle").value=x.title;$("pfCategory").value=x.category||"";$("pfDesc").value=x.description||"";$("pfImage").value=x.image_url||"";$("pfPublished").checked=x.published;$("pfFile").value="";showAdminTab("portfolio");}
-  function editProduct(id){const x=state.products.find(r=>String(r.id)===String(id));if(!x)return;$("prId").value=x.id;$("prTitle").value=x.title;$("prPrice").value=x.price;$("prSizes").value=x.sizes||"";$("prDelivery").value=x.delivery||"";$("prDesc").value=x.description||"";$("prImage").value=x.image_url||"";$("prPublished").checked=x.published;$("prFile").value="";showAdminTab("products");}
-  async function deleteRow(table,id){if(!confirm("Delete this item permanently?"))return;const {error}=await db.from(table).delete().eq("id",id);if(error){toast(error.message);return;}toast("Deleted.");await loadAdminData();}
-  function resetPortfolio(){$("portfolioForm").reset();$("pfId").value="";$("pfPublished").checked=true;}
-  function resetProduct(){$("productForm").reset();$("prId").value="";$("prPublished").checked=true;}
-  $("pfReset").onclick=resetPortfolio;$("prReset").onclick=resetProduct;
-  function preview(title,desc,image,price=""){const url=image||"";$("previewContent").innerHTML=`${url?`<img src="${esc(url)}" alt="Preview">`:""}<div><h3>${esc(title||"Untitled")}</h3>${price?`<p class="price">${esc(price)}</p>`:""}<p class="muted">${esc(desc||"")}</p><span class="tag">Preview only — not published</span></div>`;open("previewModal");}
-  $("pfPreview").onclick=()=>preview($("pfTitle").value,$("pfDesc").value,$("pfImage").value||($("pfFile").files[0]?URL.createObjectURL($("pfFile").files[0]):""));
-  $("prPreview").onclick=()=>preview($("prTitle").value,$("prDesc").value,$("prImage").value||($("prFile").files[0]?URL.createObjectURL($("prFile").files[0]):""),$("prPrice").value);
-  function fillSettings(){const s={...defaults,...state.settings};$("setHeroTitle").value=s.hero_title;$("setEyebrow").value=s.eyebrow;$("setHeroText").value=s.hero_text;$("setHeroImage").value=s.hero_image;$("setGold").value=s.gold;$("setWidth").value=s.content_width;$("setRadius").value=s.radius;$("setWhatsApp").value=s.whatsapp;$("setEmail").value=s.email;$("setAbout").value=s.about;$("setContact").value=s.contact;$("setSeo").value=s.seo;}
-  async function saveSettings(values){for(const [key,value] of Object.entries(values)){const {error}=await db.from("site_settings").upsert({key,value:String(value)},{onConflict:"key"});if(error){toast(error.message);return;}}toast("Settings saved.");await loadData();await loadAdminData();}
-  $("appearanceForm").addEventListener("submit",e=>{e.preventDefault();saveSettings({hero_title:$("setHeroTitle").value,eyebrow:$("setEyebrow").value,hero_text:$("setHeroText").value,hero_image:$("setHeroImage").value,gold:$("setGold").value,content_width:$("setWidth").value,radius:$("setRadius").value});});
-  $("settingsForm").addEventListener("submit",e=>{e.preventDefault();saveSettings({whatsapp:$("setWhatsApp").value.replace(/\D/g,""),email:$("setEmail").value,about:$("setAbout").value,contact:$("setContact").value,seo:$("setSeo").value});});
-  window.addEventListener("hashchange",()=>{if(location.hash==="#admin")requireAdmin();});
-  if(location.hash==="#admin")requireAdmin();
-  db?.auth.onAuthStateChange((event,session)=>{if(event==="SIGNED_OUT")state.user=null;});
-  loadData();
-})();
+function copyText() {
+    const input = document.getElementById('copyInput');
+    navigator.clipboard.writeText(input.value).then(() => {
+        const msg = document.getElementById('msg');
+        msg.style.opacity = '1';
+        setTimeout(() => { msg.style.opacity = '0'; }, 2000);
+    });
+}
 </script>
+
 </body>
 </html>
