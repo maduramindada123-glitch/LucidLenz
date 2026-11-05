@@ -63,12 +63,14 @@
         font-size:15px;
       }
     }
+
+    .rental-gallery{height:230px;background:#1a1a1a;position:relative;overflow:hidden}.rental-gallery>img{width:100%;height:100%;object-fit:cover}.rental-thumbs{display:flex;gap:7px;padding:10px 16px 0}.rental-thumbs button{width:52px;height:42px;padding:0;border:1px solid var(--line);border-radius:7px;overflow:hidden;background:#111}.rental-thumbs img{width:100%;height:100%;object-fit:cover}.rental-price-row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.rental-price-row .tag{font-size:12px}
   </style>
 </head>
 <body>
 <header class="topbar"><div class="wrap nav">
   <a class="brand" id="brandLink" href="#" aria-label="Lucid Lenz home"><span class="mark">LL</span><img class="brand-logo" id="brandLogo" alt="Lucid Lenz logo"><span>LUCID LENZ<small>& MERCH HEAVEN</small></span></a>
-  <nav class="navlinks" aria-label="Main navigation"><button class="active" data-tab="portfolio">Portfolio</button><button data-tab="shop">Merch Store</button><button data-tab="orders">Order <span id="cartCount" style="background:#111;color:var(--gold);border-radius:99px;padding:2px 7px;margin-left:4px">0</span></button><button data-tab="social">Social</button><button data-tab="about">About & Contact</button></nav>
+  <nav class="navlinks" aria-label="Main navigation"><button class="active" data-tab="portfolio">Portfolio</button><button data-tab="shop">Merch Store</button><button data-tab="rentals">Rental Service</button><button data-tab="orders">Order <span id="cartCount" style="background:#111;color:var(--gold);border-radius:99px;padding:2px 7px;margin-left:4px">0</span></button><button data-tab="social">Social</button><button data-tab="about">About & Contact</button></nav>
 </div></header>
 <main class="wrap">
   <section class="hero" id="hero">
@@ -77,6 +79,20 @@
   </section>
   <section class="section" id="portfolioSection"><div class="section-head"><div><div class="eyebrow">Selected work</div><h2>Visual Portfolio</h2><div class="muted">Photography and videography projects.</div></div></div><div class="grid" id="portfolioGrid"></div></section>
   <section class="section hidden" id="shopSection"><div class="section-head"><div><div class="eyebrow">Wear the story</div><h2>Merch Heaven Store</h2><div class="muted">Official clothing, accessories and limited drops.</div></div></div><div class="grid" id="productGrid"></div></section>
+  <section class="section hidden" id="rentalsSection">
+    <div class="section-head"><div><div class="eyebrow">Celebrate beautifully</div><h2>Party Decoration Rentals</h2><div class="muted">Browse our party backdrops, stands, lights and decoration pieces. Choose hourly or daily rental and send a booking request online.</div></div></div>
+    <div class="payment-help" style="margin-bottom:22px">Booking requests are not confirmed instantly. We will check availability, delivery / collection arrangements and any refundable security deposit, then contact you to confirm.</div>
+    <div class="grid" id="rentalGrid"><div class="empty">Loading rental items...</div></div>
+    <div class="order-form" style="margin-top:28px"><h3 style="margin-top:0">Rental booking request</h3><form id="rentalBookingForm">
+      <div class="field"><label for="rentalSelected">Selected rental item *</label><select id="rentalSelected" required><option value="">Choose an item above</option></select></div>
+      <div class="formgrid"><div class="field"><label for="rentalStart">Start date *</label><input id="rentalStart" type="date" required></div><div class="field"><label for="rentalStartTime">Start time *</label><input id="rentalStartTime" type="time" required></div><div class="field"><label for="rentalDurationType">Rental rate *</label><select id="rentalDurationType"><option value="hour">Hourly</option><option value="day">Daily (24 hours)</option></select></div><div class="field"><label for="rentalDuration">Number of hours / days *</label><input id="rentalDuration" type="number" min="1" max="30" value="3" required></div></div>
+      <div class="payment-help" id="rentalEstimate">Estimated rental total: LKR 0.00. Final amount and availability will be confirmed by our team.</div>
+      <div class="formgrid"><div class="field"><label for="rentalName">Full name *</label><input id="rentalName" required maxlength="100"></div><div class="field"><label for="rentalPhone">Contact number *</label><input id="rentalPhone" required maxlength="30" placeholder="07X XXX XXXX"></div><div class="field"><label for="rentalEmail">Email (optional)</label><input id="rentalEmail" type="email" maxlength="160"></div><div class="field"><label for="rentalLocation">Event / delivery location *</label><input id="rentalLocation" required maxlength="250" placeholder="Town / venue / address"></div></div>
+      <div class="field"><label for="rentalNotes">Event type and extra details</label><textarea id="rentalNotes" maxlength="1200" placeholder="Birthday, wedding, home party, setup requirements..."></textarea></div>
+      <label class="check"><input id="rentalTerms" type="checkbox" required> I understand this is a booking request and is confirmed only after the team contacts me.</label>
+      <button class="btn primary" id="rentalSubmit" type="submit">Send rental booking request</button>
+    </form></div>
+  </section>
   <section class="section hidden" id="ordersSection">
     <div class="cover-hero" id="orderCover"><div class="cover-copy"><div class="eyebrow">Merch Heaven · Official Store</div><h1 id="orderCoverTitle">Your next favourite piece starts here.</h1><p id="orderCoverText">Browse the collection, add your favourites to the cart and checkout easily.</p><button class="btn primary" data-jump="shop">Explore products</button></div></div>
     <div class="section-head"><div><div class="eyebrow">Easy ordering</div><h2>Place an Order</h2><div class="muted">Add one or more products to your cart, then enter your details and choose a payment method.</div></div></div>
@@ -91,7 +107,7 @@
 <div class="modal" id="loginModal"><div class="dialog narrow"><div class="dialoghead"><h2>Administrator Login</h2><button class="x" data-close="loginModal" aria-label="Close">×</button></div><p class="muted" style="font-size:13px">Private access for the website owner.</p><form id="loginForm"><div class="field"><label>Email</label><input id="loginEmail" type="email" autocomplete="username" required></div><div class="field"><label>Password</label><input id="loginPassword" type="password" autocomplete="current-password" required></div><button class="btn primary" style="width:100%">Sign in securely</button></form><p class="muted" id="loginHint" style="font-size:11px;margin-top:14px">Admin accounts are created in your Supabase project. Public sign-up is not available here.</p></div></div>
 
 <div class="modal" id="adminModal"><div class="dialog"><div class="dialoghead"><div><div class="eyebrow">Private workspace</div><h2>Website Control Centre</h2></div><div style="display:flex;gap:8px;align-items:center"><button class="btn" id="logoutBtn">Log out</button><button class="x" data-close="adminModal" aria-label="Close">×</button></div></div>
-  <div class="admin-layout"><aside class="side"><button class="active" data-admin-tab="portfolio">Portfolio manager</button><button data-admin-tab="products">Product manager</button><button data-admin-tab="orders">Customer orders</button><button data-admin-tab="social">Social accounts</button><button data-admin-tab="appearance">Website appearance</button><button data-admin-tab="settings">Business settings</button></aside>
+  <div class="admin-layout"><aside class="side"><button class="active" data-admin-tab="portfolio">Portfolio manager</button><button data-admin-tab="products">Product manager</button><button data-admin-tab="rentals">Rental items</button><button data-admin-tab="bookings">Rental bookings</button><button data-admin-tab="orders">Customer orders</button><button data-admin-tab="social">Social accounts</button><button data-admin-tab="appearance">Website appearance</button><button data-admin-tab="settings">Business settings</button></aside>
     <div>
       <section class="adminpanel" id="adminPortfolio"><h3>Portfolio manager</h3><form id="portfolioForm">
         <input type="hidden" id="pfId"><div class="formgrid"><div class="field"><label>Project title *</label><input id="pfTitle" required maxlength="100"></div><div class="field"><label>Category</label><input id="pfCategory" placeholder="Portrait, Automotive, Wedding..."></div></div>
@@ -101,6 +117,12 @@
         <input type="hidden" id="prId"><div class="formgrid"><div class="field"><label>Product name *</label><input id="prTitle" required maxlength="100"></div><div class="field"><label>Price (e.g. LKR 5,500) *</label><input id="prPrice" required></div><div class="field"><label>Sizes / options</label><input id="prSizes" placeholder="S, M, L, XL"></div><div class="field"><label>Delivery charge</label><input id="prDelivery" placeholder="LKR 350"></div></div>
         <div class="field"><label>Description</label><textarea id="prDesc"></textarea></div><div class="formgrid"><div class="field"><label>Upload product image</label><input id="prFile" type="file" accept="image/*"></div><div class="field"><label>Or paste image URL</label><input id="prImage" type="url" placeholder="https://..."></div></div>
         <label class="check"><input id="prPublished" type="checkbox" checked> Available / published</label><div class="card-actions"><button class="btn primary">Save product</button><button type="button" class="btn" id="prPreview">Preview</button><button type="button" class="btn" id="prReset">Clear form</button></div></form><div class="adminlist" id="productAdminList"></div></section>
+      <section class="adminpanel hidden" id="adminRentals"><h3>Rental item manager</h3><p class="muted" style="font-size:13px">Add rental items and up to three photos. Enter hourly and daily prices in LKR. Create a public Storage bucket named <b>site-images</b> if you do not already have one.</p><form id="rentalItemForm">
+        <input type="hidden" id="riId"><div class="formgrid"><div class="field"><label>Item name *</label><input id="riTitle" required maxlength="100" placeholder="Gold birthday backdrop"></div><div class="field"><label>Category</label><input id="riCategory" placeholder="Backdrop, table decor, lights..."></div><div class="field"><label>Hourly rate (LKR) *</label><input id="riHour" type="number" min="0" step="50" required></div><div class="field"><label>Daily rate (LKR) *</label><input id="riDay" type="number" min="0" step="50" required></div></div>
+        <div class="field"><label>Description / what's included</label><textarea id="riDesc" maxlength="1200"></textarea></div>
+        <div class="formgrid"><div class="field"><label>Photo 1 upload</label><input id="riFile1" type="file" accept="image/*"><input id="riUrl1" type="url" placeholder="Or photo 1 URL"></div><div class="field"><label>Photo 2 upload</label><input id="riFile2" type="file" accept="image/*"><input id="riUrl2" type="url" placeholder="Or photo 2 URL"></div><div class="field"><label>Photo 3 upload</label><input id="riFile3" type="file" accept="image/*"><input id="riUrl3" type="url" placeholder="Or photo 3 URL"></div></div>
+        <label class="check"><input id="riPublished" type="checkbox" checked> Show on public rental page</label><div class="card-actions"><button class="btn primary">Save rental item</button><button class="btn" type="button" id="riReset">Clear form</button></div></form><div class="adminlist" id="rentalAdminList"></div></section>
+      <section class="adminpanel hidden" id="adminBookings"><h3>Rental booking requests</h3><p class="muted" style="font-size:13px">Review availability, contact customers and update booking status. Do not treat a request as confirmed until you approve it.</p><div class="adminlist" id="rentalBookingsList"></div></section>
       <section class="adminpanel hidden" id="adminOrders"><h3>Customer orders & contact centre</h3><p class="muted" style="font-size:13px">View customer details, contact customers by WhatsApp or email, and update each order status.</p><div class="adminlist" id="ordersAdminList"></div></section>
       <section class="adminpanel hidden" id="adminSocial"><h3>Social accounts & content links</h3><form id="socialForm"><input type="hidden" id="soId"><div class="formgrid"><div class="field"><label>Platform *</label><input id="soPlatform" required placeholder="Instagram, TikTok, YouTube..."></div><div class="field"><label>Account / content title *</label><input id="soName" required placeholder="Lucid Lenz Official"></div><div class="field"><label>Profile or content URL *</label><input id="soUrl" type="url" required placeholder="https://..."></div></div><div class="formgrid"><div class="field"><label>Username / handle</label><input id="soHandle" placeholder="@lucidlenz"></div><div class="field"><label>Short description</label><input id="soDesc" placeholder="Latest photos, reels and updates"></div></div><label class="check"><input id="soPublished" type="checkbox" checked> Visible on public Social page</label><div class="card-actions"><button class="btn primary">Save social link</button><button type="button" class="btn" id="soReset">Clear form</button></div></form><div class="adminlist" id="socialAdminList"></div></section>
       <section class="adminpanel hidden" id="adminAppearance"><h3>Website appearance</h3><p class="muted" style="font-size:13px">These settings change the public website. Save and refresh to publish.</p><form id="appearanceForm">
@@ -120,7 +142,7 @@
   const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR_") && !SUPABASE_ANON_KEY.includes("YOUR_");
   const db = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
   const $ = id => document.getElementById(id);
-  const state = { portfolio: [], products: [], socials: [], orders: [], settings: {}, user: null, tab: "portfolio", cart: (()=>{try{const saved=JSON.parse(localStorage.getItem("lucid_lenz_cart_v1")||"[]");return Array.isArray(saved)?saved.filter(x=>x&&typeof x.product_id==="string"&&Number.isInteger(x.quantity)&&x.quantity>0&&x.quantity<=20):[];}catch{return [];}})() };
+  const state = { portfolio: [], products: [], socials: [], orders: [], rentals: [], rentalBookings: [], settings: {}, user: null, tab: "portfolio", cart: (()=>{try{const saved=JSON.parse(localStorage.getItem("lucid_lenz_cart_v1")||"[]");return Array.isArray(saved)?saved.filter(x=>x&&typeof x.product_id==="string"&&Number.isInteger(x.quantity)&&x.quantity>0&&x.quantity<=20):[];}catch{return [];}})() };
   const defaults = {
     hero_title:"Stories told through the lens.", eyebrow:"Photography · Videography · Streetwear",
     hero_text:"Discover visual work made with intention, and explore official pieces from Merch Heaven.",
@@ -139,16 +161,17 @@
   async function loadData(){
     if(!db){ render(); renderCart(); $("loginHint").textContent="Connect Supabase first. Follow SETUP.md included with this website."; return; }
     try {
-      const [p,m,s,so] = await Promise.all([
+      const [p,m,s,so,rr] = await Promise.all([
         db.from("portfolio").select("*").eq("published",true).order("created_at",{ascending:false}),
         db.from("products").select("*").eq("published",true).order("created_at",{ascending:false}),
         db.from("site_settings").select("key,value"),
-        db.from("social_links").select("*").eq("published",true).order("created_at",{ascending:false})
+        db.from("social_links").select("*").eq("published",true).order("created_at",{ascending:false}),
+        db.from("rental_items").select("*").eq("published",true).order("created_at",{ascending:false})
       ]);
       if(p.error) throw p.error; if(m.error) throw m.error; if(s.error) throw s.error; if(so.error) throw so.error;
-      state.portfolio=p.data||[]; state.products=m.data||[]; state.socials=so.data||[];
+      state.portfolio=p.data||[]; state.products=m.data||[]; state.socials=so.data||[]; state.rentals=rr.error?[]:(rr.data||[]);
       state.settings={...defaults}; (s.data||[]).forEach(x=>state.settings[x.key]=x.value);
-      applySettings(); render(); renderCart();
+      applySettings(); render(); renderCart(); renderRentals();
     } catch(e){ console.error(e); toast("Could not load website data. Check Supabase setup."); render(); }
   }
   function applySettings(){
@@ -169,11 +192,12 @@
     $("socialGrid").innerHTML=state.socials.length?state.socials.map(x=>`<article class="social-card"><div class="eyebrow">${esc(x.platform||"Social")}</div><h3>${esc(x.name)}</h3><p class="muted">${esc(x.handle||"")}${x.handle&&x.description?" · ":""}${esc(x.description||"")}</p><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">Visit account / content ↗</a></article>`).join(""):`<div class="empty">Social accounts and content links will appear here soon.</div>`;
     $("portfolioGrid").innerHTML=state.portfolio.length?state.portfolio.map(x=>`<article class="card"><div class="card-img"><img loading="lazy" src="${esc(publicUrl(x.image_url))}" alt="${esc(x.title)}"></div><div class="card-body"><span class="tag">${esc(x.category||"Photography")}</span><h3>${esc(x.title)}</h3><p>${esc(x.description||"")}</p></div></article>`).join(""):'<div class="empty">New creative work is coming soon. Check back shortly.</div>';
     $("productGrid").innerHTML=state.products.length?state.products.map(x=>`<article class="card"><div class="card-img"><img loading="lazy" src="${esc(publicUrl(x.image_url))}" alt="${esc(x.title)}"></div><div class="card-body"><div style="display:flex;justify-content:space-between;gap:10px"><h3>${esc(x.title)}</h3><span class="price">${esc(x.price)}</span></div><p>${esc(x.description||"")}</p><span class="tag">Sizes: ${esc(x.sizes||"Ask us")}</span><span class="tag">Delivery: ${esc(x.delivery||"Confirm")}</span><div class="card-actions"><button class="smallbtn gold" type="button" data-add-cart="${esc(x.id)}">Add to cart</button> <button class="smallbtn" type="button" data-order-product="${esc(x.id)}">View order form</button></div></div></article>`).join(""):'<div class="empty">No products are available right now. New drops coming soon.</div>';
+    renderRentals();
     document.querySelectorAll("[data-add-cart]").forEach(b=>b.onclick=()=>addToCart(b.dataset.addCart,1));
     document.querySelectorAll("[data-order-product]").forEach(b=>b.onclick=()=>{switchTab("orders");$("orderProduct").value=b.dataset.orderProduct;addToCart(b.dataset.orderProduct,1);$("publicOrderForm").scrollIntoView({behavior:"smooth",block:"center"});});
   }
   function switchTab(tab){
-    state.tab=tab; $("portfolioSection").classList.toggle("hidden",tab!=="portfolio"); $("shopSection").classList.toggle("hidden",tab!=="shop"); $("ordersSection").classList.toggle("hidden",tab!=="orders"); $("socialSection").classList.toggle("hidden",tab!=="social"); $("aboutSection").classList.toggle("hidden",tab!=="about");
+    state.tab=tab; $("portfolioSection").classList.toggle("hidden",tab!=="portfolio"); $("shopSection").classList.toggle("hidden",tab!=="shop"); $("ordersSection").classList.toggle("hidden",tab!=="orders"); $("rentalsSection").classList.toggle("hidden",tab!=="rentals"); $("socialSection").classList.toggle("hidden",tab!=="social"); $("aboutSection").classList.toggle("hidden",tab!=="about");
     document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
     if(tab==="portfolio") $("hero").classList.remove("hidden"); else $("hero").classList.add("hidden");
     window.scrollTo({top:0,behavior:"smooth"});
@@ -194,17 +218,19 @@
     await loadAdminData(); open("adminModal"); return true;
   }
   async function loadAdminData(){
-    const [p,m,s,so,o]=await Promise.all([
+    const [p,m,s,so,o,ri,rb]=await Promise.all([
       db.from("portfolio").select("*").order("created_at",{ascending:false}),
       db.from("products").select("*").order("created_at",{ascending:false}),
       db.from("site_settings").select("key,value"),
       db.from("social_links").select("*").order("created_at",{ascending:false}),
-      db.from("customer_orders").select("*").order("created_at",{ascending:false})
+      db.from("customer_orders").select("*").order("created_at",{ascending:false}),
+      db.from("rental_items").select("*").order("created_at",{ascending:false}),
+      db.from("rental_bookings").select("*").order("created_at",{ascending:false})
     ]);
     if(p.error||m.error||s.error||so.error||o.error){toast("Could not load admin records. Check database policies.");return;}
-    state.portfolio=p.data||[];state.products=m.data||[];state.socials=so.data||[];state.orders=o.data||[];
+    state.portfolio=p.data||[];state.products=m.data||[];state.socials=so.data||[];state.orders=o.data||[];state.rentals=ri.error?[]:(ri.data||[]);state.rentalBookings=rb.error?[]:(rb.data||[]);
     state.settings={...defaults};(s.data||[]).forEach(x=>state.settings[x.key]=x.value);
-    render();renderAdminLists();renderSocialAdminList();renderOrdersAdminList();fillSettings();
+    render();renderAdminLists();renderSocialAdminList();renderOrdersAdminList();renderRentalAdmin();fillSettings();
   }
   $("loginForm").addEventListener("submit",async e=>{
     e.preventDefault();if(!db)return toast("Supabase is not configured.");
@@ -213,8 +239,36 @@
     close("loginModal"); await requireAdmin();
   });
   $("logoutBtn").addEventListener("click",async()=>{await db.auth.signOut();state.user=null;close("adminModal");toast("You are logged out.");});
+  function rentalImages(item){return [item.image_1,item.image_2,item.image_3].filter(Boolean)}
+  function renderRentals(){
+    const grid=$("rentalGrid"); if(!grid)return;
+    grid.innerHTML=state.rentals.length?state.rentals.map(x=>{const imgs=rentalImages(x);const first=imgs[0]||"";return `<article class="card"><div class="rental-gallery"><img id="rentalMain-${esc(x.id)}" src="${esc(first)}" alt="${esc(x.title)}"></div>${imgs.length>1?`<div class="rental-thumbs">${imgs.map((u,i)=>`<button type="button" data-rental-photo="${esc(x.id)}" data-photo-url="${esc(u)}" aria-label="View photo ${i+1}"><img src="${esc(u)}" alt="${esc(x.title)} photo ${i+1}"></button>`).join("")}</div>`:""}<div class="card-body"><span class="tag">${esc(x.category||"Party decor")}</span><h3>${esc(x.title)}</h3><p>${esc(x.description||"")}</p><div class="rental-price-row"><span class="tag">${money(x.hourly_rate)} / hour</span><span class="tag">${money(x.daily_rate)} / day</span></div><button class="btn primary" type="button" data-book-rental="${esc(x.id)}">Book this item</button></div></article>`}).join(""):'<div class="empty">Rental items are being prepared. Please check back soon.</div>';
+    $("rentalSelected").innerHTML='<option value="">Choose an item above</option>'+state.rentals.map(x=>`<option value="${esc(x.id)}">${esc(x.title)} — ${money(x.hourly_rate)}/hour · ${money(x.daily_rate)}/day</option>`).join("");
+    document.querySelectorAll("[data-rental-photo]").forEach(b=>b.onclick=()=>{const im=$("rentalMain-"+b.dataset.rentalPhoto);if(im)im.src=b.dataset.photoUrl;});
+    document.querySelectorAll("[data-book-rental]").forEach(b=>b.onclick=()=>{$("rentalSelected").value=b.dataset.bookRental;$("rentalBookingForm").scrollIntoView({behavior:"smooth",block:"center"});updateRentalEstimate();});
+  }
+  function updateRentalEstimate(){const item=state.rentals.find(x=>String(x.id)===$("rentalSelected").value);const type=$("rentalDurationType").value;const n=Math.max(1,Math.min(30,Number($("rentalDuration").value)||1));const total=item?(Number(type==="day"?item.daily_rate:item.hourly_rate)||0)*n:0;$("rentalEstimate").textContent=`Estimated rental total: ${money(total)}. Delivery, setup, refundable deposit and availability are confirmed separately by our team.`;}
+  ["rentalSelected","rentalDurationType","rentalDuration"].forEach(id=>$(id).addEventListener("change",updateRentalEstimate));
+  $("rentalBookingForm").addEventListener("submit",async e=>{e.preventDefault();if(!db)return toast("Please try again later; booking service is not connected.");const item=state.rentals.find(x=>String(x.id)===$("rentalSelected").value);if(!item)return toast("Please choose a rental item.");const type=$("rentalDurationType").value,n=Math.max(1,Math.min(30,Number($("rentalDuration").value)||1));const amount=(Number(type==="day"?item.daily_rate:item.hourly_rate)||0)*n;const row={rental_item_id:item.id,item_name:item.title,customer_name:$("rentalName").value.trim(),customer_phone:$("rentalPhone").value.trim(),customer_email:$("rentalEmail").value.trim(),event_location:$("rentalLocation").value.trim(),start_date:$("rentalStart").value,start_time:$("rentalStartTime").value,duration_type:type,duration_count:n,estimated_total:amount,notes:$("rentalNotes").value.trim(),status:"pending"};const btn=$("rentalSubmit");btn.disabled=true;btn.textContent="Sending request...";try{const {data,error}=await db.from("rental_bookings").insert(row).select("id").single();if(error)throw error;const msg=`Hello Lucid Lenz! I submitted a rental booking request.
+Reference: ${data.id}
+Item: ${item.title}
+Date/time: ${row.start_date} ${row.start_time}
+Duration: ${n} ${type}(s)
+Estimated rental: ${money(amount)}
+Name: ${row.customer_name}
+Phone: ${row.customer_phone}
+Location: ${row.event_location}`;const phone=(state.settings.whatsapp||"").replace(/\D/g,"");$("rentalBookingForm").reset();updateRentalEstimate();toast("Booking request sent. We will contact you to confirm availability.");if(phone)window.open(waLink(phone,msg),"_blank","noopener");}catch(err){console.error(err);toast(err.message||"Could not send booking request. Please try again.");}finally{btn.disabled=false;btn.textContent="Send rental booking request";}});
+  function renderRentalAdmin(){
+    $("rentalAdminList").innerHTML=state.rentals.map(x=>`<div class="adminrow"><span><b>${esc(x.title)}</b><small>${money(x.hourly_rate)}/hour · ${money(x.daily_rate)}/day · ${x.published?"Published":"Hidden"}</small></span><span><button class="smallbtn" data-ri-edit="${esc(x.id)}">Edit</button> <button class="smallbtn" data-ri-del="${esc(x.id)}">Delete</button></span></div>`).join("")||'<p class="muted">No rental items added yet.</p>';
+    $("rentalBookingsList").innerHTML=state.rentalBookings.map(x=>`<article class="adminrow" style="display:block"><b>${esc(x.item_name)}</b><p class="muted" style="font-size:12px">${esc(x.customer_name)} · ${esc(x.customer_phone)} · ${esc(x.customer_email||"")}<br>${esc(x.start_date)} at ${esc(x.start_time)} · ${esc(x.duration_count)} ${esc(x.duration_type)}(s)<br>${esc(x.event_location)}<br>Estimate: ${money(x.estimated_total)}<br>${esc(x.notes||"")}</p><label>Status <select data-rb-status="${esc(x.id)}"><option ${x.status==="pending"?"selected":""} value="pending">Pending</option><option ${x.status==="confirmed"?"selected":""} value="confirmed">Confirmed</option><option ${x.status==="rejected"?"selected":""} value="rejected">Rejected</option><option ${x.status==="completed"?"selected":""} value="completed">Completed</option></select></label></article>`).join("")||'<p class="muted">No rental bookings received yet.</p>';
+    document.querySelectorAll("[data-ri-edit]").forEach(b=>b.onclick=()=>{const x=state.rentals.find(v=>String(v.id)===b.dataset.riEdit);if(!x)return;$("riId").value=x.id;$("riTitle").value=x.title;$("riCategory").value=x.category||"";$("riHour").value=x.hourly_rate;$("riDay").value=x.daily_rate;$("riDesc").value=x.description||"";[1,2,3].forEach(i=>{$("riUrl"+i).value=x["image_"+i]||"";$("riFile"+i).value="";});$("riPublished").checked=x.published;showAdminTab("rentals");});
+    document.querySelectorAll("[data-ri-del]").forEach(b=>b.onclick=async()=>{if(!confirm("Delete this rental item?"))return;const {error}=await db.from("rental_items").delete().eq("id",b.dataset.riDel);if(error)return toast(error.message);await loadAdminData();toast("Rental item deleted.");});
+    document.querySelectorAll("[data-rb-status]").forEach(sel=>sel.onchange=async()=>{const {error}=await db.from("rental_bookings").update({status:sel.value}).eq("id",sel.dataset.rbStatus);if(error)return toast(error.message);const x=state.rentalBookings.find(v=>String(v.id)===sel.dataset.rbStatus);if(x)x.status=sel.value;toast("Booking status updated.");});
+  }
+  $("rentalItemForm").addEventListener("submit",async e=>{e.preventDefault();try{const id=$("riId").value;const images=[];for(let i=1;i<=3;i++){let u=$("riUrl"+i).value.trim();const f=$("riFile"+i).files[0];if(f)u=await uploadImage(f);if(!u&&id){const old=state.rentals.find(x=>String(x.id)===String(id));u=old?.["image_"+i]||"";}images.push(u||null);}if(!images[0])throw new Error("Please add at least one rental photo.");const row={title:$("riTitle").value.trim(),category:$("riCategory").value.trim(),hourly_rate:Number($("riHour").value),daily_rate:Number($("riDay").value),description:$("riDesc").value.trim(),image_1:images[0],image_2:images[1],image_3:images[2],published:$("riPublished").checked};const {error}=id?await db.from("rental_items").update(row).eq("id",id):await db.from("rental_items").insert(row);if(error)throw error;$("rentalItemForm").reset();$("riId").value="";$("riPublished").checked=true;await loadAdminData();toast("Rental item saved.");}catch(err){toast(err.message||"Could not save rental item.");}});
+  $("riReset").onclick=()=>{$("rentalItemForm").reset();$("riId").value="";$("riPublished").checked=true;};
   function showAdminTab(tab){
-    ["portfolio","products","orders","social","appearance","settings"].forEach(t=>{ $("admin"+t[0].toUpperCase()+t.slice(1)).classList.toggle("hidden",t!==tab);});
+    ["portfolio","products","rentals","bookings","orders","social","appearance","settings"].forEach(t=>{ $("admin"+t[0].toUpperCase()+t.slice(1)).classList.toggle("hidden",t!==tab);});
     document.querySelectorAll("[data-admin-tab]").forEach(b=>b.classList.toggle("active",b.dataset.adminTab===tab));
   }
   document.querySelectorAll("[data-admin-tab]").forEach(b=>b.addEventListener("click",()=>showAdminTab(b.dataset.adminTab)));
